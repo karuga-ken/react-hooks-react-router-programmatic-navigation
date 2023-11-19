@@ -1,12 +1,13 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import { useState } from "react";
+import { useOutletContext } from "react-router-dom";
 
-function Login({ setIsLoggedIn }) {
-  const history = useHistory();
+function Login() {
+  const login = useOutletContext();
   const [formData, setFormData] = useState({
     username: "",
     password: "",
   });
+  console.log('navigated to login')
 
   function handleChange(e) {
     setFormData({
@@ -15,17 +16,13 @@ function Login({ setIsLoggedIn }) {
     });
   }
 
-  function handleSubmit(e) {
+  function handleLogin(e) {
     e.preventDefault();
-
-    setIsLoggedIn(true);
-
-    // after logging the user in, redirect to the home page!
-    history.push("/");
+    login();
   }
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleLogin}>
       <h1>Login</h1>
       <input
         type="text"
@@ -39,7 +36,7 @@ function Login({ setIsLoggedIn }) {
         value={formData.password}
         onChange={handleChange}
       />
-      <button type="submit">Login</button>
+      <input type="submit" value="Login"/>
     </form>
   );
 }
